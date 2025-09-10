@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.API.Data;
+using TaskManager.API.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace TaskManager.API.Controllers
 {
@@ -15,14 +17,12 @@ namespace TaskManager.API.Controllers
             _context = context;
         }
 
-        // GET: api/projects
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
             return await _context.Projects.ToListAsync();
         }
 
-        // GET: api/projects/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(int id)
         {
@@ -36,7 +36,6 @@ namespace TaskManager.API.Controllers
             return project;
         }
 
-        // POST: api/projects
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
@@ -46,7 +45,6 @@ namespace TaskManager.API.Controllers
             return CreatedAtAction("GetProject", new { id = project.Id }, project);
         }
 
-        // PUT: api/projects/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProject(int id, Project project)
         {
@@ -76,7 +74,6 @@ namespace TaskManager.API.Controllers
             return NoContent();
         }
 
-        // DELETE: api/projects/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(int id)
         {
