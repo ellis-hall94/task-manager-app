@@ -27,7 +27,6 @@ export interface Task {
     updatedAt: string;
 }
 
-// Auth API calls
 export const login = async (username: string, password: string): Promise<AuthResponse> => {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
@@ -52,7 +51,6 @@ export const register = async (username: string, email: string, password: string
     return response.json();
 };
 
-// Task API calls
 export const getTasks = async (): Promise<Task[]> => {
     const token = localStorage.getItem('token');
     const response = await fetch(`${API_BASE_URL}/tasks`, {

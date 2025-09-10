@@ -1,10 +1,13 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../services/api';
 
 const LoginForm: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -12,9 +15,13 @@ const LoginForm: React.FC = () => {
         setLoading(true);
 
         try {
-            console.log('Login attempt:', { username, password });
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            alert('Login functionality to be implemented');
+            const result = await login(username, password);
+            if (result.success) {
+                localStorage.setItem('token', result.token || '');
+                navigate('/dashboard');
+            } else {
+                setError(result.message);
+            }
         } catch (err) {
             setError('Login failed. Please try again.');
         } finally {
@@ -33,6 +40,7 @@ const LoginForm: React.FC = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
+                        style={{ width: '100%', padding: '0.5rem', marginTop: '0.25rem' }}
                     />
                 </div>
                 <div style={{ marginBottom: '1rem' }}>
@@ -42,10 +50,15 @@ const LoginForm: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        style={{ width: '100%', padding: '0.5rem', marginTop: '0.25rem' }}
                     />
                 </div>
-                {error && <div style={{ color: 'red' }}>{error}</div>}
-                <button type="submit" disabled={loading}>
+                {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
+                <button 
+                    type="submit" 
+                    disabled={loading}
+                    style={{ width: '100%', padding: '0.75rem' }}
+                >
                     {loading ? 'Logging in...' : 'Login'}
                 </button>
             </form>
