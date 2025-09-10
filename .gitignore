@@ -25,6 +25,15 @@ bld/
 *.snupkg
 **/packages/*
 
+# Additional build artifacts
+*.deps.json
+*.FileListAbsolute.txt
+staticwebassets*.json
+*.Up2Date
+*.dll
+*.pdb
+*.exe
+
 # Node.js
 node_modules/
 npm-debug.log*
@@ -46,7 +55,7 @@ dist/
 .vscode/
 .idea/
 *.swp
-*.swo
+.*.swp
 *~
 
 # OS
