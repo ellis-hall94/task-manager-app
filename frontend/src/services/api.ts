@@ -93,7 +93,7 @@ export const updateTask = async (id: number, task: Partial<Task>): Promise<void>
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...task, id }),
+        body: JSON.stringify({ ...task }),
     });
 
     if (!response.ok) {
