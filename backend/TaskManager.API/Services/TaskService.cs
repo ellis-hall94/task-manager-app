@@ -20,7 +20,7 @@ namespace TaskManager.API.Services
             return await _context.Tasks.ToListAsync();
         }
 
-        public async Task<TaskManager.API.Models.Task> GetTaskByIdAsync(int id)
+        public async Task<TaskManager.API.Models.Task?> GetTaskByIdAsync(int id)
         {
             return await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
         }
